@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const discord = require('discord.js')
 const mariadb = require('mariadb');
+const logger = require("../util/logger.js");
 let pool = mariadb.createPool({host: process.env.DB_HOST, user: process.env.DB_USER, password: process.env.DB_PASSWORD, connectionLimit: 5});
 let config_option;
 let newval;

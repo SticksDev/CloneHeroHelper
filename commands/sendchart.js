@@ -1,6 +1,9 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageActionRow, MessageSelectMenu, MessageButton } = require("discord.js");
 let msgcollection;
+const mariadb = require('mariadb');
+const logger = require("../util/logger.js");
+let pool = mariadb.createPool({host: process.env.DB_HOST, user: process.env.DB_USER, password: process.env.DB_PASSWORD, connectionLimit: 5});
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -39,21 +42,27 @@ module.exports = {
                 .setLabel("Youtube Link")
                 .setStyle('SECONDARY'),
         );
-		await interaction.editReply({
-			content: "Choose what you would like to do.",
-			components: [selectmenu],
-		});
+        pool.getConnection()
+        .then(conn => {
+            conn.query("USE ch_helper;")
+            conn.query(`SELECT * FROM ch_serverconfig WHERE server_id = ${interaction.guild.id}`).then(result => {
+                if(result[0].reviewer_role_id === '0' && result[0].logchan_id === '0' && result[0].queue_chart_channel === '0') {
+                    return interaction.editReply("Error: Please set the config for ``reviewer_role_id``, ``logchan_id``, ``queue_chart_channel`` to use this command.")
+                } else {
+                    interaction.editReply({
+                        content: ":warning: Pleas ensure your config is correct before using this command. \n Choose what you would like to do.",
+                        components: [selectmenu],
+                    });
+                }
+            })
+        })
 
         const filter = interaction => {
             interaction.deferUpdate();
             return interaction.user.id === interaction.user.id;
         };
         
-        const filter2 = m => m.content.includes('discord');
-        
         const selectlisner = interaction.channel.createMessageComponentCollector({ filter, time: 150000 });
-
-        const msglistner = interaction.channel.createMessageCollector({filter2, time: 15000 });
         
         selectlisner.on('collect', i => {
            if(!i.values) {
@@ -77,10 +86,6 @@ module.exports = {
                     interaction.editReply({content: "Please use the /checkstatus command with the ID to check the status of your request.", components: []})
                 }
             }
-        })
-
-        msglistner.on('collect', m => {
-            console.log(m.content)
         })
 	},
 };
