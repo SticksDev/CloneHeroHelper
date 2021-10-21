@@ -1,0 +1,31 @@
+{
+  "name": "chhelper",
+  "version": "1.0.0",
+  "description": "A bot for CH discords.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thatcooldevguy/CHhelper.git"
+  },
+  "author": "sticks#6436",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "bugs": {
+    "url": "https://github.com/Thatcooldevguy/CHhelper/issues"
+  },
+  "homepage": "https://github.com/Thatcooldevguy/CHhelper#readme",
+  "dependencies": {
+    "@discordjs/builders": "^0.7.0",
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "@sapphire/time-utilities": "^1.4.4",
+    "colorette": "^2.0.16",
+    "discord-api-types": "^0.24.0",
+    "discord.js": "^13.2.0",
+    "fs": "^0.0.1-security"
+  },
+  "devDependencies": {
+    "prettier": "2.4.1"
+  }
+}
