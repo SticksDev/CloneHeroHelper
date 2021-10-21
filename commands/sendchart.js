@@ -48,25 +48,39 @@ module.exports = {
             interaction.deferUpdate();
             return interaction.user.id === interaction.user.id;
         };
+        
+        const filter2 = m => m.content.includes('discord');
+        
         const selectlisner = interaction.channel.createMessageComponentCollector({ filter, time: 150000 });
+
+        const msglistner = interaction.channel.createMessageCollector({filter2, time: 15000 });
         
         selectlisner.on('collect', i => {
            if(!i.values) {
             switch (i.customId) {
                 case "google_drive":
                     interaction.editReply({content: "Please send the google drive link in the next message.", components: []})
+                    break
                 case "yt_link":
                     interaction.editReply({content: "Please send the youtube link in the next message.", components: []})
+                    break
                 case "message_attachment":
                     interaction.editReply({content: "Upload using discord's message attachment function (the plus button)", components: []})
+                    break
+                default:
+                    interaction.editReply({content: "Error: seems like there was an unknown case thrown. Please try again.", components: []})
              }   
             } else {
                 if (i.values[0] === "send_chart") {
                     interaction.editReply({content: "Please choose the way you'd like to send a chart.",  components: [buttonrow_sendchart]});
                 } else if (i.values[0] === "check_status") {
-                     interaction.editReply({content: "Please use the /checkstatus command with the ID to check the status of your request.", components: []})
+                    interaction.editReply({content: "Please use the /checkstatus command with the ID to check the status of your request.", components: []})
                 }
             }
+        })
+
+        msglistner.on('collect', m => {
+            console.log(m.content)
         })
 	},
 };

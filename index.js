@@ -1,3 +1,4 @@
+require('dotenv').config()
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 const config = require('./config.json');
@@ -7,8 +8,10 @@ const logger = require("./util/logger.js");
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
+
 const commands = [];
 client.commands = new Collection();
+client.config = config;
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
