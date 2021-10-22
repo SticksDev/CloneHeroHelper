@@ -35,14 +35,29 @@ const rest = new REST({ version: '9' }).setToken(config.token);
 
 (async () => {
 	try {
-		logger.log('Started refreshing application (/) commands.');
+		logger.log('Started refreshing application (/) on dev server.');
 
 		await rest.put(
 			Routes.applicationGuildCommands(config.clientid, config.guildid),
 			{ body: commands },
 		);
 
-		logger.log('Successfully reloaded application (/) commands.');
+		logger.log('Successfully reloaded application (/) commands on dev server.');
+	} catch (error) {
+		logger.log(error, "error");
+	}
+})();
+
+(async () => {
+	try {
+		logger.log('Started refreshing application (/) globaly.');
+
+		await rest.put(
+			Routes.applicationCommands(config.clientid),
+			{ body: commands },
+		);
+
+		logger.log('Successfully reloaded application (/) commands globally. This will take an hour to push to all servers.');
 	} catch (error) {
 		logger.log(error, "error");
 	}

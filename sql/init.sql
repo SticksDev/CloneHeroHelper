@@ -16,8 +16,9 @@ CREATE TABLE `ch_chartqueue`
  `link_address`    varchar(255) NOT NULL ,
  `status`          varchar(255) NOT NULL ,
  `last_updated`    varchar(255) NOT NULL ,
- `judgment_reason` varchar(255) NOT NULL ,
+ `judgement_reason` varchar(255) NOT NULL ,
  `judgement_outcome` varchar(255) NOT NULL ,
+ `ProcessedBy` varchar(255) NOT NULL ,
 
 PRIMARY KEY (`user_id`)
 );

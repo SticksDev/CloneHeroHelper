@@ -57,12 +57,12 @@ module.exports = {
                         if(result[0].reviewer_role_id === '0' && result[0].logchan_id === '0' && result[0].queue_chart_channel === '0') {
                             color = "RED"
                             title = "Configuration Test Output: Fail."
-                        } else {
+                        } else if (result[0].reviewer_role_id === '0' || result[0].logchan_id === '0' || result[0].queue_chart_channel === '0'){
                             color = "YELLOW"
                             title = "Configuration Test Output: Partial Pass."
                         }
 
-                        if(result[0].reviewer_role_id < '0' && result[0].logchan_id < '0' && result[0].queue_chart_channel < '0') {
+                        if(result[0].reviewer_role_id > '0' && result[0].logchan_id > '0' && result[0].queue_chart_channel > '0') {
                             color = "GREEN"
                             title = "Configuration Test Output: Pass."
                         }
