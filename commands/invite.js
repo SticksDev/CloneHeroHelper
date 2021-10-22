@@ -21,7 +21,7 @@ module.exports = {
           .setStyle("LINK"),
 
         new MessageButton()
-          .setURL("https://discord.gg/UY9bjyfGQx")
+          .setURL("https://discord.gg/9DGKHCMZrq")
           .setLabel("Support Server")
           .setStyle("LINK"),
 
