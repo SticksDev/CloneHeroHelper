@@ -43,8 +43,8 @@ module.exports = {
         if (generalChannel) {
             generalChannel.send({ embeds: [Invite], components: [row] });
         } else {
-            client.users.cache.get(owner.id).send(":x: Oops, I couldn't find a channel to send the welcome message in. I'll send it here!");
-            client.users.cache.get(owner.id).send({ embeds: [Invite], components: [row] });
+            client.users.cache.get(owner).send(":x: Oops, I couldn't find a channel to send the welcome message in. I'll send it here!");
+            client.users.cache.get(owner.send({ embeds: [Invite], components: [row] });
         }
         logger.log(`Setup complete for ${guild.id}.`, "log");
 
