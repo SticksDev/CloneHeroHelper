@@ -38,7 +38,7 @@ const rest = new REST({ version: '9' }).setToken(config.token);
 		logger.log('Started refreshing application (/) on dev server.');
 
 		await rest.put(
-			Routes.applicationGuildCommands(config.clientidcanary, config.guildid),
+			Routes.applicationGuildCommands(config.clientid, config.guildid),
 			{ body: commands },
 		);
 
