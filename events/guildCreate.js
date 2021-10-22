@@ -2,10 +2,12 @@ const logger = require("../util/logger.js");
 const mariadb = require('mariadb');
 const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js")
 let pool = mariadb.createPool({host: process.env.DB_HOST, user: process.env.DB_USER, password: process.env.DB_PASSWORD, connectionLimit: 5});
+let owner;
 module.exports = {
 	name: 'guildCreate',
     execute(guild, client) {
         pool = mariadb.createPool({host: process.env.DB_HOST, user: process.env.DB_USER, password: process.env.DB_PASSWORD, connectionLimit: 5});
+	owner = guild.ownerId
         logger.log(`[GUILD JOIN] ${guild.id} added the bot. Owner: ${guild.ownerId}`, "log");
         logger.log(`Processing setup tasks for ${guild.id}...`, "log");
         // Create default row 
