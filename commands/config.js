@@ -38,6 +38,10 @@ module.exports = {
             )
             .setColor("BLUE")
         await interaction.deferReply();
+        if (!interaction.member.permissions.has(discord.Permissions.FLAGS.ADMINISTRATOR)) {
+            pool.end()
+            return await interaction.editReply(":x: You do not have administrator permission on your role.");
+        }
         let choice = interaction.options.get("config_option")
         let updatedval = interaction.options.get("new_value")
         

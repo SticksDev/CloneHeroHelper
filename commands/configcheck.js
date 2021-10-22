@@ -18,6 +18,10 @@ module.exports = {
         // ensure pool is created
         pool = mariadb.createPool({host: process.env.DB_HOST, user: process.env.DB_USER, password: process.env.DB_PASSWORD, connectionLimit: 5});
 		await interaction.deferReply();
+        if (!interaction.member.permissions.has(discord.Permissions.FLAGS.ADMINISTRATOR)) {
+            pool.end()
+            return await interaction.editReply(":x: You do not have administrator permission on your role.");
+        }
 		pool.getConnection()
         .then(conn => {
             conn.query(`USE ch_helper;`)

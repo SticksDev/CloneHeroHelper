@@ -38,7 +38,7 @@ const rest = new REST({ version: '9' }).setToken(config.token);
 		logger.log('Started refreshing application (/) on dev server.');
 
 		await rest.put(
-			Routes.applicationGuildCommands(config.clientid, config.guildid),
+			Routes.applicationGuildCommands(config.clientidcanary, config.guildid),
 			{ body: commands },
 		);
 
@@ -59,7 +59,7 @@ const rest = new REST({ version: '9' }).setToken(config.token);
 
 		logger.log('Successfully reloaded application (/) commands globally. This will take an hour to push to all servers.');
 	} catch (error) {
-		logger.log(error, "error");
+		logger.log(error, "warn");
 	}
 })();
 
